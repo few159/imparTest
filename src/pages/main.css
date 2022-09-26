@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+:root {
+   --cor-stroke: #EDD8F3;
+   --cor-bg: #F9F0FC;
+   --cor-branco: #FFFFFF;
+   --cor-aviso: #FFC400;
+   --cor-erro: #DB2525;
+   --cor-sucesso: #51C421;
+   --cor-texto: #454545;
+   --cor-destaque: #E76316;
+   --cor-primaria: #5F1478;
+   --cor-secundaria: #AE276F;
+   font-family: Quicksand;
+}
+
+body {
+   padding: 0;
+   margin: 0;
+}
+
+button,
+span {
+   font-family: Quicksand;
+}
