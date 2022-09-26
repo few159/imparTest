@@ -1,10 +1,17 @@
-import { OverlayElement } from "../styles";
+import { CreateFormPosition, OverlayElement } from "../styles";
 import CardCreateForm from "./CardCreateForm/CardCreateForm";
 
-export default function CardCreate(){
+interface ICreateCardProps {
+    closeModal: () => void
+}
+export default function CardCreate({ closeModal }: ICreateCardProps) {
     return (
-        <OverlayElement>
-            <CardCreateForm />
-        </OverlayElement>
+        <>
+            <OverlayElement onClick={closeModal} />
+
+            <CreateFormPosition>
+                <CardCreateForm closeModal={closeModal} />
+            </CreateFormPosition>
+        </>
     )
 }

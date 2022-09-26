@@ -24,6 +24,7 @@ export const SearchBarElement = styled.section`
             top: -2px;
             cursor: pointer;
             transition: 300ms;
+            height: 41px;
 
             &:hover{
                 filter: brightness(.7);

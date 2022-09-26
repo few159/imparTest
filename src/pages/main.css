@@ -22,3 +22,21 @@ button,
 span {
    font-family: Quicksand;
 }
+
+*::-webkit-scrollbar {
+   width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+   background: rgba(255, 0, 0, 0);
+   /* color of the tracking area */
+}
+
+*::-webkit-scrollbar-thumb {
+   background-color: rgb(120, 118, 131);
+   /* color of the scroll thumb */
+   border-radius: 20px;
+   /* roundness of the scroll thumb */
+   border: 3px solid var(--cor-destaque);
+   /* creates padding around scroll thumb */
+}

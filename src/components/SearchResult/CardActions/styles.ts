@@ -13,6 +13,16 @@ export const OverlayElement = styled.div`
     justify-content: flex-end;
 `
 
+export const CreateFormPosition = styled.div`
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
+
+    display: flex;
+    justify-content: flex-end;
+`
+
 export const DeleteOverlayElement = styled.div`
     height: 100vh;
     width: 100vw;

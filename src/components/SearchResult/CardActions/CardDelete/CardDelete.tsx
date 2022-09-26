@@ -1,10 +1,15 @@
 import { DeleteOverlayElement } from "../styles";
 import CardDeleteModal from "./CardDeleteModal/CardDeleteModal";
 
-export default function CardDelete(){
+interface IDeleteCardModalProps{
+    pokemonId: number
+    closeModal: () => void
+}
+
+export default function CardDelete({closeModal, pokemonId}: IDeleteCardModalProps){
     return (
-        <DeleteOverlayElement>
-            <CardDeleteModal />
+        <DeleteOverlayElement onClick={closeModal}>
+            <CardDeleteModal closeModal={closeModal} pokemonId={pokemonId}/>
         </DeleteOverlayElement>
     )
 }

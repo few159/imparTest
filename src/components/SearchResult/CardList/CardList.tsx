@@ -1,27 +1,68 @@
+import { useEffect, useState } from "react";
+import { useCard } from "../../../hooks/Card";
+import { usePagination } from "../../../hooks/Pagination";
+import PaginationBar from "../../PaginationBar/PaginationBar";
 import Card from "../Card/Card";
+import CardDelete from "../CardActions/CardDelete/CardDelete";
 import { CardListElement } from "./styles";
 
 export default function CardList() {
-    const pokemonArr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    const cardLimit = 8;
+    const { paginationProperties, mountPagination } = usePagination()
+    const { pokemons, getCards, pokemonsCount } = useCard()
+
+    const [selectedPokemon, setSelectedPokemon] = useState<number>(null)
+
+    useEffect(() => {
+        if(!paginationProperties) {
+            getCards().then(() => {
+                mountPagination(pokemonsCount)
+            })
+            return
+        }
+
+        getCards(paginationProperties.elementsLimit, ((paginationProperties.currentPage - 1) * paginationProperties.elementsLimit))
+    }, [paginationProperties])
+
+    function deletePokemonCard(pokemonId: number) {
+        setSelectedPokemon(pokemonId)
+    }
 
     return (
-        <CardListElement>
-            {
-                pokemonArr.map((pokemon, index) => {
-                    if (index < cardLimit) {
-                        return (
-                            <Card key={index} />
-                        )
-                    }
-                })
-            }
+        <>
+            <CardListElement>
+                {
+                    pokemons.length > 0 ?
+                        pokemons.map((pokemon, index) => {
+                            console.log({ pokemon })
+                            if (index < paginationProperties.elementsLimit) {
+                                return (
+                                    <Card pokemon={pokemon}
+                                        deletePoke={deletePokemonCard}
+                                        key={index}
+                                    />
+                                )
+                            }
+                        })
+                        : null
+                }
+
+            </CardListElement>
 
             {
-                pokemonArr.length > cardLimit
-                    ? <div>Espaço reservado para paginação (CurrPag: )</div>
+                pokemonsCount > paginationProperties?.elementsLimit
+                    ? <PaginationBar />
                     : null
             }
-        </CardListElement>
+
+            {selectedPokemon
+                ? <CardDelete
+                    closeModal={() => {
+                        setSelectedPokemon(null)
+                    }}
+                    pokemonId={selectedPokemon}
+                />
+                : null
+            }
+        </>
     )
 }

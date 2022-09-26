@@ -1,6 +1,16 @@
+import { useCard } from "../../../../../hooks/Card";
 import { CreateFormElement } from "./styles";
 
-export default function CardCreateForm() {
+interface ICreateCardProps {
+    closeModal: () => void
+}
+export default function CardCreateForm({closeModal}: ICreateCardProps) {
+    const { createCard } = useCard()
+
+    async function createPokemon() {
+        await createCard({})
+        closeModal()
+    }
     return (
         <CreateFormElement>
             <header>
@@ -8,7 +18,7 @@ export default function CardCreateForm() {
                 <h2>Criar Card</h2>
             </header>
 
-            <form action="">
+            <form>
                 <div>
                     <label>DIGITE UM NOME PARA O CARD</label>
                     <input type="text" placeholder="Digite o título" />
@@ -22,7 +32,7 @@ export default function CardCreateForm() {
                 </div>
 
                 <footer>
-                    <button type="submit">Criar card</button>
+                    <button type="submit" onClick={createPokemon}>Criar card</button>
                 </footer>
             </form>
         </CreateFormElement>
