@@ -5,7 +5,7 @@ export default function SearchSection() {
     return (
         <SearchSectionElement>
             <div>
-                <img src="src/assets/imgs/fundo-busca.png" alt="Fundo da barra de pesquisa" />
+                <img src="/assets/imgs/fundo-busca.png" alt="Fundo da barra de pesquisa" />
             </div>
 
             <SearchBar />

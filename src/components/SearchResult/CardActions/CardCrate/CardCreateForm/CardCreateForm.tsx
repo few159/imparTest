@@ -14,7 +14,7 @@ export default function CardCreateForm({closeModal}: ICreateCardProps) {
     return (
         <CreateFormElement>
             <header>
-                <img src="src/assets/icone_criar.svg" alt="Icone adicionar imagem" />
+                <img src="/assets/icone_criar.svg" alt="Icone adicionar imagem" />
                 <h2>Criar Card</h2>
             </header>
 

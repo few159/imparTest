@@ -30,8 +30,8 @@ export default function SearchBar() {
             <input type="text" placeholder="Digite aqui sua busca..." onChange={e => typeAction(e.target.value)} value={searchTerm ?? ''}/>
             {
                 showingResults 
-                ? <img src="src/assets/Icon-close.svg" alt="Limpar Busca" onClick={clearSearch} />
-                : <img src="src/assets/lupa.svg" alt="Lupa de Busca" onClick={search} />
+                ? <img src="/assets/Icon-close.svg" alt="Limpar Busca" onClick={clearSearch} />
+                : <img src="/assets/lupa.svg" alt="Lupa de Busca" onClick={search} />
             }
             
         </SearchBarElement>

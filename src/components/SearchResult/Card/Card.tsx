@@ -12,7 +12,7 @@ export default function Card({ pokemon, deletePoke }: ICardProps) {
         <CardElement>
             <ImageAndDescriptionElement>
                 <div>
-                    {/* <img src="src/assets/lupa.svg" alt="" /> */}
+                    {/* <img src="/assets/lupa.svg" alt="" /> */}
                     <img src={pokemon.sprites.front_default} alt="" />
                 </div>
                 <span>{pokemon.name.toUpperCase()}</span>
@@ -20,13 +20,13 @@ export default function Card({ pokemon, deletePoke }: ICardProps) {
             <CardButtonsGroupElement>
                 <button onClick={() => deletePoke(pokemon.id)}>
                     <span>
-                        <img src="src/assets/Icon-trash.svg" alt="Icone de Deleção" />
+                        <img src="/assets/Icon-trash.svg" alt="Icone de Deleção" />
                         Excluir
                     </span>
                 </button>
                 <button onClick={() => editCard(pokemon.id)}>
                     <span>
-                        <img src="src/assets/Icon-edit.svg" alt="Icone de Edição" />
+                        <img src="/assets/Icon-edit.svg" alt="Icone de Edição" />
                         Editar
                     </span>
                 </button>
