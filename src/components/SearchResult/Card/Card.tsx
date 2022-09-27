@@ -13,7 +13,7 @@ export default function Card({ pokemon, deletePoke }: ICardProps) {
             <ImageAndDescriptionElement>
                 <div>
                     {/* <img src="/assets/lupa.svg" alt="" /> */}
-                    <img src={pokemon.sprites.front_default} alt="" />
+                    <img src={pokemon.sprites.front_default ?? "/assets/lupa.svg"} alt="" />
                 </div>
                 <span>{pokemon.name.toUpperCase()}</span>
             </ImageAndDescriptionElement>
