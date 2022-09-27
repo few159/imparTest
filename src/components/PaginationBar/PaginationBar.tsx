@@ -42,6 +42,7 @@ export default function PaginationBar() {
                                         <div
                                             onClick={() => goToPage(page)}
                                             className={paginationProperties.currentPage == page ? "active" : ""}
+                                            key={page}
                                         >
                                             {page}
                                         </div>
