@@ -5,6 +5,7 @@ export const PaginationBarElement = styled.div`
     margin: 1.5rem auto;
     display: flex;
     justify-content: flex-end;
+    padding: 0px 0 1.5rem 0;
 
     div{
         cursor: pointer;

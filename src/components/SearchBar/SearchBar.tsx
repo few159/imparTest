@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useCard } from "../../hooks/Card";
+import { usePagination } from "../../hooks/Pagination";
 import { SearchBarElement } from "./styles";
 
 export default function SearchBar() {
-    const { searchPokemon, getCards } = useCard()
+    const { goToPage } = usePagination()
+    const { searchTerm, setSearchTerm, getCards } = useCard()
 
-    const [searchTerm, setSearchTerm] = useState<string>(null)
     const [showingResults, setShowingResults] = useState<boolean>(false)
 
     function typeAction(inputValue: string) {
@@ -13,27 +14,27 @@ export default function SearchBar() {
     }
 
     async function search() {
-        if(!searchTerm) return
+        if (!searchTerm) return
 
-        await searchPokemon(searchTerm)
+        goToPage(1)
         setShowingResults(true)
     }
 
-    async function clearSearch(){
-        await getCards()
+    async function clearSearch() {
         setSearchTerm(null)
+        goToPage(1)
         setShowingResults(false)
     }
 
     return (
         <SearchBarElement>
-            <input type="text" placeholder="Digite aqui sua busca..." onChange={e => typeAction(e.target.value)} value={searchTerm ?? ''}/>
+            <input type="text" placeholder="Digite aqui sua busca..." onChange={e => typeAction(e.target.value)} value={searchTerm ?? ''} />
             {
-                showingResults 
-                ? <img src="/assets/Icon-close.svg" alt="Limpar Busca" onClick={clearSearch} />
-                : <img src="/assets/lupa.svg" alt="Lupa de Busca" onClick={search} />
+                showingResults
+                    ? <img src="/assets/Icon-close.svg" alt="Limpar Busca" onClick={clearSearch} />
+                    : <img src="/assets/lupa.svg" alt="Lupa de Busca" onClick={search} />
             }
-            
+
         </SearchBarElement>
     )
 }

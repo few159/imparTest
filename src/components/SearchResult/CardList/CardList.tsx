@@ -8,36 +8,41 @@ import { CardListElement } from "./styles";
 
 export default function CardList() {
     const { paginationProperties, mountPagination } = usePagination()
-    const { pokemons, getCards, pokemonsCount } = useCard()
+    const { cars, getCards, searchTerm, searchCar, carsCount } = useCard()
 
-    const [selectedPokemon, setSelectedPokemon] = useState<number>(null)
+    const [selectedCar, setSelectedCar] = useState<number>(null)
 
     useEffect(() => {
-        if(!paginationProperties) {
-            getCards().then(() => {
-                mountPagination(pokemonsCount)
-            })
-            return
-        }
+        if (!paginationProperties) return
 
-        getCards(paginationProperties.elementsLimit, ((paginationProperties.currentPage - 1) * paginationProperties.elementsLimit))
+        searchTerm ? 
+        searchCar(searchTerm, paginationProperties.elementsLimit, ((paginationProperties.currentPage - 1) * paginationProperties.elementsLimit))
+        : getCards(paginationProperties.elementsLimit, ((paginationProperties.currentPage - 1) * paginationProperties.elementsLimit))
     }, [paginationProperties])
 
-    function deletePokemonCard(pokemonId: number) {
-        setSelectedPokemon(pokemonId)
+    useEffect(() => {
+        if (!paginationProperties) {
+            getCards().then((count) => {
+                mountPagination(count)
+            })
+        }
+    }, [])
+
+
+    function deleteCarCard(carId: number) {
+        setSelectedCar(carId)
     }
 
     return (
         <>
             <CardListElement>
                 {
-                    pokemons.length > 0 ?
-                        pokemons.map((pokemon, index) => {
-                            console.log({ pokemon })
+                    cars.length > 0 ?
+                        cars.map((car, index) => {
                             if (index < paginationProperties.elementsLimit) {
                                 return (
-                                    <Card pokemon={pokemon}
-                                        deletePoke={deletePokemonCard}
+                                    <Card car={car}
+                                        deleteCar={deleteCarCard}
                                         key={index}
                                     />
                                 )
@@ -49,17 +54,17 @@ export default function CardList() {
             </CardListElement>
 
             {
-                pokemonsCount > paginationProperties?.elementsLimit
+                carsCount > paginationProperties?.elementsLimit
                     ? <PaginationBar />
                     : null
             }
 
-            {selectedPokemon
+            {selectedCar
                 ? <CardDelete
                     closeModal={() => {
-                        setSelectedPokemon(null)
+                        setSelectedCar(null)
                     }}
-                    pokemonId={selectedPokemon}
+                    carId={selectedCar}
                 />
                 : null
             }

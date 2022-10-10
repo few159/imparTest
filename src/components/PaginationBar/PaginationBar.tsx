@@ -6,12 +6,12 @@ import { DeleteOverlayElement } from "../SearchResult/CardActions/styles";
 import { PaginationBarElement } from "./styles";
 
 export default function PaginationBar() {
-    const { pokemonsCount, isLoading } = useCard()
+    const { carsCount, isLoading } = useCard()
     const { paginationProperties, mountPagination, changePage, goToPage } = usePagination()
 
     useEffect(() => {
-        mountPagination(pokemonsCount)
-    }, [])
+        mountPagination(carsCount)
+    }, [carsCount])
 
     return (
         <>

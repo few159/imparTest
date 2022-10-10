@@ -1,16 +1,82 @@
+import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 import { useCard } from "../../../../../hooks/Card";
-import { CreateFormElement } from "./styles";
+import { ICar } from "../../../../../interfaces/cars";
+import { CreateFormElement, InputFileElement } from "./styles";
 
 interface ICreateCardProps {
-    closeModal: () => void
+    closeModal: () => void,
+    updateCar?: ICar
 }
-export default function CardCreateForm({closeModal}: ICreateCardProps) {
-    const { createCard } = useCard()
+export default function CardCreateForm({ closeModal, updateCar }: ICreateCardProps) {
+    const { createCard, editCard } = useCard()
+    const imgInputRef = useRef<HTMLInputElement>()
+    const titleInputRef = useRef<HTMLInputElement>()
 
-    async function createPokemon() {
-        await createCard({})
+    const [base64, setBase64] = useState<string>(null)
+
+    useEffect(() => {
+        if (!updateCar) return
+
+        titleInputRef.current.value = updateCar.name
+    }, [])
+
+    async function editCar() {
+        await editCard(
+            {
+                ...updateCar,
+                name: titleInputRef.current.value,
+                photo: {
+                    id: updateCar.id,
+                    base64: base64 ?? updateCar.photo.base64
+                }
+            }
+        )
+
         closeModal()
     }
+
+    async function createCar() {
+        await createCard(
+            {
+                name: titleInputRef.current.value,
+                status: '',
+                photo: {
+                    base64: base64
+                }
+            }
+        )
+        closeModal()
+    }
+
+    function loadImage() {
+        imgInputRef.current.click()
+    }
+
+    function encodeImageFileAsURL(element) {
+        let file = element.target.files[0];
+
+        if (element.target.files[0].size > (5 * 1000 * 1000)) {
+            toast.error('Imagem grande demais.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            return
+        }
+
+        let reader = new FileReader();
+
+        reader.onloadend = () => {
+            setBase64(reader.result.toString())
+        }
+        reader.readAsDataURL(file);
+    }
+
     return (
         <CreateFormElement>
             <header>
@@ -21,18 +87,20 @@ export default function CardCreateForm({closeModal}: ICreateCardProps) {
             <form>
                 <div>
                     <label>DIGITE UM NOME PARA O CARD</label>
-                    <input type="text" placeholder="Digite o título" />
+                    <input type="text" placeholder="Digite o título" ref={titleInputRef} />
                 </div>
 
                 <div>
                     <label>INCLUA UMA IMAGEM PARA APARECER NO CARD</label>
-                    <input type="text" placeholder="Nenhum arquivo selecionado" />
-                    <button type="button">Escolher arquivo</button>
-                    {/* <input type="file" placeholder="Nenhum arquivo selecionado"/> */}
+                    <input type="text" disabled placeholder={base64 ? 'Arquivo carregado' : "Nenhum arquivo selecionado"} />
+                    <button type="button" onClick={loadImage}>Escolher arquivo</button>
+                    <InputFileElement>
+                        <input ref={imgInputRef} type="file" onChange={encodeImageFileAsURL} placeholder="Nenhum arquivo selecionado" />
+                    </InputFileElement>
                 </div>
 
                 <footer>
-                    <button type="submit" onClick={createPokemon}>Criar card</button>
+                    <button type="button" onClick={updateCar ? editCar : createCar}>{updateCar ? 'Atualizar card': 'Criar card'}</button>
                 </footer>
             </form>
         </CreateFormElement>

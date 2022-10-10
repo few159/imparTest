@@ -94,3 +94,6 @@ export const CreateFormElement = styled.div`
         }
     }
 `
+export const InputFileElement = styled.div`
+    display: none !important;
+`

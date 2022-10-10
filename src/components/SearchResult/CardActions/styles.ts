@@ -36,3 +36,17 @@ export const DeleteOverlayElement = styled.div`
     align-items: center;
     justify-content: center;
 `
+
+export const EditOverlayElement = styled.div`
+    height: 100vh;
+    width: 100vw;
+    background: rgba(246, 244, 246, 0.8);
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
