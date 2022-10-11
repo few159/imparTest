@@ -26,8 +26,7 @@ const CardContextData = createContext<CardContextData>({} as CardContextData);
 
 export function CardProvider({ children }: CardProps) {
     const { paginationProperties } = usePagination()
-    const backendUrl = 'https://localhost:7156/api/'
-    // const backendUrl = 'http://localhost:5156/api/'
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
 
     const [cars, setCars] = useState<Array<ICar>>([])
     const [carsCount, setCarsCount] = useState<number>(0)

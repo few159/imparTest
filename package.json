@@ -31,10 +31,5 @@
     "resolutions": {
         "//": "See https://github.com/facebook/create-react-app/issues/11773",
         "react-error-overlay": "6.0.9"
-    },
-    "react-dotenv": {
-        "whitelist": [
-            "POKE_API_URL"
-        ]
     }
 }
